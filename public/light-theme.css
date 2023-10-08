@@ -1,0 +1,5 @@
+/* public/light-theme.css */
+:root {
+    --background-color: #ffffff;
+    --text-color: #000000;
+}
