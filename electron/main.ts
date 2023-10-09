@@ -1,4 +1,4 @@
-import { app, BrowserWindow } from 'electron'
+import { app, BrowserWindow, ipcMain, nativeTheme } from 'electron'
 // import path from 'node:path'
 import path from 'path'
 
@@ -25,6 +25,8 @@ function createWindow() {
     icon: path.join(process.env.VITE_PUBLIC, 'electron-vite.svg'),
     width : 1200,
     height : 800,
+    minHeight : 720,
+    minWidth : 600,
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
       nodeIntegration : false,
@@ -34,6 +36,19 @@ function createWindow() {
       allowRunningInsecureContent : false,
       
     },
+  })
+
+  ipcMain.handle("dark-mode:toggle", () => {
+    if(nativeTheme.shouldUseDarkColors){
+      nativeTheme.themeSource = "dark"
+    }
+    else{
+      nativeTheme.themeSource = "light"
+    }
+  })
+
+  ipcMain.handle('dark-mode:system', () => {
+    nativeTheme.themeSource = 'system'
   })
 
   // Test active push message to Renderer-process.
