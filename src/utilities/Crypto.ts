@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import CryptoJS from "crypto-js"
 
 export const encryptData = (

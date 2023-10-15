@@ -1,6 +1,6 @@
 import { createContext, useMemo } from "react"
-import { decryptData, encryptData } from "@/utilities/Crypto"
 import { useCookies } from "react-cookie"
+import { decryptData, encryptData } from "../../../utilities/Crypto"
 
 const ENCRYPT_SECRET = process.env.SAMPLE_PROJECT_ENCRYPT_SECRET
 

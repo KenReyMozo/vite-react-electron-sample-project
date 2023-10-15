@@ -28,13 +28,9 @@ function createWindow() {
     minHeight : 720,
     minWidth : 600,
     webPreferences: {
+      nodeIntegration : true,
       preload: path.join(__dirname, 'preload.js'),
-      nodeIntegration : false,
-      contextIsolation : true,
-      sandbox : true,
-      webSecurity : true,
-      allowRunningInsecureContent : false,
-      
+      webSecurity : false,
     },
   })
 
@@ -55,6 +51,18 @@ function createWindow() {
   win.webContents.on('did-finish-load', () => {
     win?.webContents.send('main-process-message', (new Date).toLocaleString())
   })
+  win.webContents.on('did-finish-load', () => {
+    win?.webContents.send('main-process-message', __dirname)
+  })
+  win.webContents.on('did-finish-load', () => {
+    win?.webContents.send('main-process-message', VITE_DEV_SERVER_URL)
+  })
+  win.webContents.on('did-finish-load', () => {
+    win?.webContents.send('main-process-message', app.isPackaged)
+  })
+  win.webContents.on('did-finish-load', () => {
+    win?.webContents.send('main-process-message', path.join(process.env.DIST, 'index.html'))
+  })
   // Listen for the DevTools being opened or closed
   win.webContents.on('devtools-opened', () => {
     // DevTools opened, adjust window size
@@ -66,14 +74,16 @@ function createWindow() {
     win?.setSize(1200, 600);
   })
 
-  win.webContents.openDevTools()
 
   if (VITE_DEV_SERVER_URL) {
     win.loadURL(VITE_DEV_SERVER_URL)
   } else {
     // win.loadFile('dist/index.html')
     win.loadFile(path.join(process.env.DIST, 'index.html'))
+    // win.loadFile(path.join(__dirname, 'index.html'))
   }
+
+  win.webContents.openDevTools()
 }
 
 // Quit when all windows are closed, except on macOS. There, it's common

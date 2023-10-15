@@ -1,37 +1,30 @@
 import './App.css'
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import { Suspense, lazy } from 'react'
-import ErrorBoundary from './components/error-boundary/ErrorBoundary'
+import { Route, Routes } from 'react-router-dom'
+// import Layout from './components/layout/Layout'
+import { MemoryRouter as Router } from 'react-router-dom'
+import LoginPage from '@/pages/login-page/LoginPage';
+// import ErrorBoundary from './components/error-boundary/ErrorBoundary'
 
-const Layout = lazy(() => import("./components/layout/Layout"))
-
-const LoginPage = lazy(() => import("./pages/login-page/LoginPage"))
-
-function App() {
-
+const App = () => {
 	return (
-		<BrowserRouter>
-			
-			<Suspense>
-			<Routes>
-		
-			<Route
-				element={
-						<Layout/>
-						}>
-
-							<Route index element={
-								<ErrorBoundary>
-									<LoginPage/>
-								</ErrorBoundary>
-							}/>
-
-					</Route>
-
-				</Routes>
-			</Suspense>
-		</BrowserRouter>
-	)
-}
+	<>
+	<Router>
+	<div>
+	<AppRouter />
+	</div>
+	</Router>
+	</>
+	);
+};
 
 export default App
+
+const AppRouter = () => {
+	return (
+		
+	<Routes>
+		<Route path="/" index element={<LoginPage />} />
+		<Route path="/about" element={<LoginPage />} />
+	</Routes>
+);
+};
