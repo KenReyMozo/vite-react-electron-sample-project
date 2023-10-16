@@ -16,10 +16,9 @@ const SignInApi = async ({
 } : SignInApiType) => {
 	return await signInWithEmailAndPassword(auth, email, password)
 	.then((res) => {
-		return res
+		return res.user
 	})
 	.catch((error) => {
-		
 		try {
 			const error_match = FIREBASE_AUTHENTICATION_ERRORS.find((item) => item.id === error.code)
 			if(error_match)

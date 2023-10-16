@@ -1,5 +1,6 @@
 import Button from "@/components/button/Button"
 import Input from "@/components/input/Input"
+import SignInApi from "@/firebase-manager/auth/AuthApi"
 import useFirebaseAuth from "@/firebase-manager/auth/AuthHook"
 import AuthProvider from "@/firebase-manager/auth/AuthProvider"
 import React, { useState } from "react"
@@ -9,6 +10,17 @@ const LoginPage : React.FC = () => {
 
 	const navigate = useNavigate()
 	const { user } = useFirebaseAuth({ redirect : '/user/home', fallback_to : '/'})
+	const [isSignUp, setIsSignUp] = useState(false)
+
+	const [loginData, setLoginData] = useState({
+		email : "",
+		password : "",
+	})
+
+	const onChangeLoginData = (e : RCE<HTMLInputElement>) => {
+		const { name, value } = e.target
+		setLoginData(prev => ({...prev, [name] : value}))
+	}
 
 	const ShowNotification = () => {
 		new Notification("My Notification", {
@@ -16,22 +28,25 @@ const LoginPage : React.FC = () => {
 		})
 	}
 
-	const [isSignUp, setIsSignUp] = useState(false)
 
 	const onSubmitLoginForm = async (e : React.FormEvent) => {
 		e.preventDefault()
+		const credentials = await SignInApi(loginData)
 		ShowNotification()
 		navigate('/user/home')
 	}
+
 	return (
 		<div className="page flex flex-col items-center justify-center">
 			{!isSignUp &&
 			<form className={`swing_in_top_fwd min-w-[20rem] bg-gray-200 p-4 rounded-lg`}
 				onSubmit={onSubmitLoginForm}>
 				<Input
-					label="Username"
-					inputMode="text"
-					placeholder="username"
+					label="Email"
+					type="email"
+					inputMode="email"
+					placeholder="sample@email.com"
+					onChange={onChangeLoginData}
 					disabled={user === undefined}
 					required/>
 				<Input
