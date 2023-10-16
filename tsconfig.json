@@ -26,6 +26,7 @@
       "pages/*" : [ "./src/pages/*" ],
       "components/*" : [ "./src/components/*" ],
       "utilities/*" : [ "./src/utilities/*" ],
+      "firebase-manager/*": [ "./src/firebase-manager/*",  ],
     }
   },
   "include": ["src", "types", "electron"],

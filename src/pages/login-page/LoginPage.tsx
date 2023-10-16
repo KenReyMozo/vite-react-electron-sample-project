@@ -1,11 +1,14 @@
 import Button from "@/components/button/Button"
 import Input from "@/components/input/Input"
+import useFirebaseAuth from "@/firebase-manager/auth/AuthHook"
+import AuthProvider from "@/firebase-manager/auth/AuthProvider"
 import React, { useState } from "react"
 import { useNavigate } from "react-router-dom"
 
 const LoginPage : React.FC = () => {
 
 	const navigate = useNavigate()
+	const { user } = useFirebaseAuth({ redirect : '/user/home', fallback_to : '/'})
 
 	const ShowNotification = () => {
 		new Notification("My Notification", {
@@ -20,7 +23,6 @@ const LoginPage : React.FC = () => {
 		ShowNotification()
 		navigate('/user/home')
 	}
-
 	return (
 		<div className="page flex flex-col items-center justify-center">
 			{!isSignUp &&
@@ -30,11 +32,13 @@ const LoginPage : React.FC = () => {
 					label="Username"
 					inputMode="text"
 					placeholder="username"
+					disabled={user === undefined}
 					required/>
 				<Input
 					label="Password"
 					inputMode="text"
 					placeholder="************"
+					disabled={user === undefined}
 					type="password"
 					required/>
 				<div className="grid gap-6 mb-6 md:grid-cols-2 mt-4">
@@ -55,25 +59,32 @@ const LoginPage : React.FC = () => {
 					label="Email"
 					type="email"
 					inputMode="email"
+					disabled={user === undefined}
 					placeholder="sample@email.com"
 					required/>
 				<Input
 					label="Password"
 					inputMode="text"
 					placeholder="************"
+					disabled={user === undefined}
 					type="password"
 					required/>
 				<div className="grid gap-6 mb-6 md:grid-cols-2 mt-4">
-					<Button.Alternative type="submit">
+					<Button.Alternative type="submit"
+						disabled={user === undefined}>
 						Sign Up
 					</Button.Alternative>
 					<Button.Dark
+						disabled={user === undefined}
 						onClick={()=>setIsSignUp(prev => !prev)}>
 						Login
 					</Button.Dark>
 				</div>
 			</form>
 			}
+			<div className='my-2'>
+				<AuthProvider.Google onAuth={()=>{}}/>
+			</div>
 		</div>
 	)
 }
