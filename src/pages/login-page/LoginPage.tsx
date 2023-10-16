@@ -1,8 +1,11 @@
 import Button from "@/components/button/Button"
 import Input from "@/components/input/Input"
 import React, { useState } from "react"
+import { useNavigate } from "react-router-dom"
 
 const LoginPage : React.FC = () => {
+
+	const navigate = useNavigate()
 
 	const ShowNotification = () => {
 		new Notification("My Notification", {
@@ -15,6 +18,7 @@ const LoginPage : React.FC = () => {
 	const onSubmitLoginForm = async (e : React.FormEvent) => {
 		e.preventDefault()
 		ShowNotification()
+		navigate('/user/home')
 	}
 
 	return (
