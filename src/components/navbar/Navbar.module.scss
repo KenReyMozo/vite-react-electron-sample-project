@@ -1,0 +1,14 @@
+.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: .5rem 1rem;
+    gap: .5rem;
+}
+
+.profile_picture {
+    width: 2.5rem;
+    background: white;
+    padding: .2rem;
+    border-radius: 50%;
+}

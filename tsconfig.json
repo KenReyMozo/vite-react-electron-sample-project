@@ -21,12 +21,14 @@
     "noFallthroughCasesInSwitch": true,
     "paths": {
       "@/*" : [
-        "src/*"
+        "./src/*"
       ],
+      "pages/*" : [ "./src/pages/*" ],
       "components/*" : [ "./src/components/*" ],
-      
+      "utilities/*" : [ "./src/utilities/*" ],
+      "firebase-manager/*": [ "./src/firebase-manager/*",  ],
     }
   },
-  "include": ["src", "electron"],
+  "include": ["src", "types", "electron"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
