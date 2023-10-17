@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "scripts": {
     "dev": "vite",
-    "update" : "git checkout development && git pull && git checkout initial/components && git merge development && npm run dev",
+    "update" : "sh update.sh",
     "build": "tsc && vite build && electron-builder",
     "build:desktop": "tsc && vite build && electron-builder",
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
