@@ -1,8 +1,6 @@
 import React from "react"
 
-type ButtonType = {
-
-} & React.ComponentProps<"button">
+type ButtonType = React.ComponentProps<"button">
 
 const Button = (props : ButtonType) => {
 
