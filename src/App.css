@@ -1,12 +1,10 @@
 #root {
-    min-height : 100vh;
+  min-height: 100vh;
 }
 
-
-
 .swing_in_top_fwd {
-	-webkit-animation: swing-in-top-fwd 0.5s cubic-bezier(0.175, 0.885, 0.320, 1.275) both;
-			animation: swing-in-top-fwd 0.5s cubic-bezier(0.175, 0.885, 0.320, 1.275) both;
+  -webkit-animation: swing-in-top-fwd 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+  animation: swing-in-top-fwd 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
 }
 
 /* ----------------------------------------------
@@ -22,39 +20,39 @@
 * ----------------------------------------
 */
 @-webkit-keyframes swing-in-top-fwd {
-	0% {
-	-webkit-transform: rotateX(-100deg);
-			transform: rotateX(-100deg);
-	-webkit-transform-origin: top;
-			transform-origin: top;
-	opacity: 0;
-	}
-	100% {
-	-webkit-transform: rotateX(0deg);
-			transform: rotateX(0deg);
-	-webkit-transform-origin: top;
-			transform-origin: top;
-	opacity: 1;
-	}
+  0% {
+    -webkit-transform: rotateX(-100deg);
+    transform: rotateX(-100deg);
+    -webkit-transform-origin: top;
+    transform-origin: top;
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: rotateX(0deg);
+    transform: rotateX(0deg);
+    -webkit-transform-origin: top;
+    transform-origin: top;
+    opacity: 1;
+  }
 }
 @keyframes swing-in-top-fwd {
-	0% {
-	-webkit-transform: rotateX(-100deg);
-			transform: rotateX(-100deg);
-	-webkit-transform-origin: top;
-			transform-origin: top;
-	opacity: 0;
-	}
-	100% {
-	-webkit-transform: rotateX(0deg);
-			transform: rotateX(0deg);
-	-webkit-transform-origin: top;
-			transform-origin: top;
-	opacity: 1;
-	}
+  0% {
+    -webkit-transform: rotateX(-100deg);
+    transform: rotateX(-100deg);
+    -webkit-transform-origin: top;
+    transform-origin: top;
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: rotateX(0deg);
+    transform: rotateX(0deg);
+    -webkit-transform-origin: top;
+    transform-origin: top;
+    opacity: 1;
+  }
 }
 
 .slide_out_elliptic_left_bck {
-	-webkit-animation: slide-out-elliptic-left-bck 0.7s ease-in both;
-			animation: slide-out-elliptic-left-bck 0.7s ease-in both;
+  -webkit-animation: slide-out-elliptic-left-bck 0.7s ease-in both;
+  animation: slide-out-elliptic-left-bck 0.7s ease-in both;
 }

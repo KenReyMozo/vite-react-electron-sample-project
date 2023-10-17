@@ -1,16 +1,13 @@
-import { Outlet } from "react-router-dom"
+import { Outlet } from 'react-router-dom';
 
+const Layout: React.FC = () => {
+  // const { user } = useContext(AuthContext)
 
-const Layout : React.FC = () => {
+  return (
+    <>
+      <Outlet />
+    </>
+  );
+};
 
-    // const { user } = useContext(AuthContext)
-
-
-    return (
-        <>
-            <Outlet/>
-        </>
-    )
-}
-
-export default Layout
+export default Layout;

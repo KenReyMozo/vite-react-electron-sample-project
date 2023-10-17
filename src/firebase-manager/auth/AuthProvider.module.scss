@@ -1,38 +1,37 @@
-
-$twitterColor : #1DA1F2;
-$facebookColor : #0C88EE;
+$twitterColor: #1da1f2;
+$facebookColor: #0c88ee;
 
 .button {
-    font-size: 2rem;
-    background: white !important;
-    border-radius: 50%;
-    border: .3rem solid white;
-    min-width: 2.5rem;
-    min-height: 2.5rem;
-    position: relative;
+  font-size: 2rem;
+  background: white !important;
+  border-radius: 50%;
+  border: 0.3rem solid white;
+  min-width: 2.5rem;
+  min-height: 2.5rem;
+  position: relative;
 
+  svg {
+    transition-duration: 150ms;
+    top: calc(0%);
+    position: absolute;
+  }
+
+  &:hover {
     svg {
-        transition-duration: 150ms;
-        top : calc(0%);
-        position: absolute;
+      top: calc(0% + -0.5rem);
+      transform: rotate(-20deg);
     }
-
-    &:hover {
-        svg {
-            top : calc(0% + -0.5rem);
-            transform: rotate(-20deg);
-        }
-    }
+  }
 }
 
 .github {
-    color : black !important;
+  color: black !important;
 }
 
 .facebook {
-    color: $facebookColor;
+  color: $facebookColor;
 }
 
 .twitter {
-    color: $twitterColor;
+  color: $twitterColor;
 }

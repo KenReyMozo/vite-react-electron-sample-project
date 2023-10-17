@@ -1,10 +1,5 @@
-const HomePage : React.FC = () => {
+const HomePage: React.FC = () => {
+  return <div className="page flex flex-col items-center justify-center bg-gray-700"></div>;
+};
 
-	return (
-		<div className="page flex flex-col items-center justify-center bg-gray-700">
-			
-		</div>
-	)
-}
-
-export default HomePage
+export default HomePage;

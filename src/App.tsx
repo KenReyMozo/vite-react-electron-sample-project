@@ -1,43 +1,56 @@
-import './App.css'
-import { Route, Routes } from 'react-router-dom'
-// import Layout from './components/layout/Layout'
-import { MemoryRouter as Router } from 'react-router-dom'
-import LoginPage from '@/pages/login-page/LoginPage';
-import HomePage from '@/pages/home-page/HomePage';
+import './App.css';
+import { Route, Routes } from 'react-router-dom';
+import { MemoryRouter as Router } from 'react-router-dom';
 import AuthLayout from '@/components/layout/AuthLayout';
 import { Suspense, lazy } from 'react';
-// import ErrorBoundary from './components/error-boundary/ErrorBoundary'
 
-const LazyProfilePage = lazy(() => import('@/pages/profile-page/ProfilePage'))
+const LazyHomePage = lazy(() => import('@/pages/home-page/HomePage'));
+const LazyLoginPage = lazy(() => import('@/pages/login-page/LoginPage'));
+const LazyProfilePage = lazy(() => import('@/pages/profile-page/ProfilePage'));
 
 const App = () => {
-	return (
-	<>
-	<Router>
-	<div className='bg-gray-800'>
-	<AppRouter />
-	</div>
-	</Router>
-	</>
-	);
+  return (
+    <Router>
+      <div className="bg-gray-800">
+        <AppRouter />
+      </div>
+    </Router>
+  );
 };
 
-export default App
+export default App;
 
 const AppRouter = () => {
-	return (
-		
-	<Routes>
-		<Route path="/" index element={<LoginPage />} />
+  return (
+    <Routes>
+      <Route
+        path="/"
+        index
+        element={
+          <Suspense>
+            <LazyLoginPage />
+          </Suspense>
+        }
+      />
 
-		<Route path='/user' element={<AuthLayout/>}>
-			<Route path="home" element={<HomePage />} />
-			<Route path="profile" element={
-			<Suspense>
-				<LazyProfilePage/>
-			</Suspense>
-		} />
-		</Route>
-	</Routes>
-);
+      <Route path="/user" element={<AuthLayout />}>
+        <Route
+          path="home"
+          element={
+            <Suspense>
+              <LazyHomePage />
+            </Suspense>
+          }
+        />
+        <Route
+          path="profile"
+          element={
+            <Suspense>
+              <LazyProfilePage />
+            </Suspense>
+          }
+        />
+      </Route>
+    </Routes>
+  );
 };

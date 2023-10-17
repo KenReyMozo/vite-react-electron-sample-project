@@ -1,88 +1,84 @@
 .container {
-    position: fixed;
-    left: 0;
-    bottom: 0;
-    top: 0;
-    width: 5rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: .5rem 0;
-    gap: .5rem;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  top: 0;
+  width: 5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0.5rem 0;
+  gap: 0.5rem;
 }
 
 .button {
-    position: relative;
-    width: 5rem;
+  position: relative;
+  width: 5rem;
 
+  .content {
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    transition-duration: 200ms;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    margin: auto;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  }
+
+  &:hover {
     .content {
-        overflow: hidden;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-
-        transition-duration: 200ms;
-        width: 3rem;
-        height: 3rem;
-        border-radius: 50%;
-        margin: auto;
-        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+      border-radius: 0.8rem;
+      box-shadow: none;
     }
+  }
 
-    &:hover {
-        .content{
-            border-radius: .8rem;
-            box-shadow: none;
-        }
-    }
-    
-    &::before {
-        content: "";
-        background: white;
-        position: absolute;
-        transition-duration: 150ms;
-        padding: .15rem;
-        border-radius: 0 1rem 1rem 0;
-    }
-
+  &::before {
+    content: '';
+    background: white;
+    position: absolute;
+    transition-duration: 150ms;
+    padding: 0.15rem;
+    border-radius: 0 1rem 1rem 0;
+  }
 }
 
 .active {
+  .content {
+    border-radius: 0.8rem;
+  }
 
-    .content{
-        border-radius: .8rem;
-    }
-
-    &::before {
-        left: 0;
-        top: calc(10%);
-        height: calc(80%);
-    }
+  &::before {
+    left: 0;
+    top: calc(10%);
+    height: calc(80%);
+  }
 }
 
 .inactive {
-
-    &::before {
-        left: -1rem;
-        top: calc(50% - .75rem);
-        height: 1.5rem;
-        opacity: 0;
-    }
-    &:hover::before {
-        left: 0rem;
-        opacity: 1;
-    }
+  &::before {
+    left: -1rem;
+    top: calc(50% - 0.75rem);
+    height: 1.5rem;
+    opacity: 0;
+  }
+  &:hover::before {
+    left: 0rem;
+    opacity: 1;
+  }
 }
 
 .notify {
-
-    &::before {
-        left: 0;
-        top: calc(50% - .25rem);
-        height: .5rem;
-    }
-    &:hover::before {
-        top: calc(50% - .75rem);
-        height: 1.5rem;
-    }
+  &::before {
+    left: 0;
+    top: calc(50% - 0.25rem);
+    height: 0.5rem;
+  }
+  &:hover::before {
+    top: calc(50% - 0.75rem);
+    height: 1.5rem;
+  }
 }
