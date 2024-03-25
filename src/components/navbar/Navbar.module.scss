@@ -6,9 +6,15 @@
   gap: 0.5rem;
 }
 
-.profile_picture {
-  width: 2.5rem;
-  background: white;
-  padding: 0.2rem;
-  border-radius: 50%;
+.profile {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  color : white;
+  img {
+    width: 2.5rem;
+    background: white;
+    padding: 0.2rem;
+    border-radius: 50%;
+  }
 }
