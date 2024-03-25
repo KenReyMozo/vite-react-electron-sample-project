@@ -67,7 +67,7 @@ module.exports = {
   'require-atomic-updates': 0,
 
   // Suggestions
-  'arrow-body-style': 2, // OK keep
+  'arrow-body-style': 0, // OK keep
   'block-scoped-var': 2, // OK keep
   'consistent-return': 0, // not needed due to typecheck
   curly: [2, 'multi-line'],

@@ -1,6 +1,5 @@
 import './App.css';
-import { Route, Routes } from 'react-router-dom';
-import { MemoryRouter as Router } from 'react-router-dom';
+import { Route, Routes, MemoryRouter as Router } from 'react-router-dom';
 import AuthLayout from '@/components/layout/AuthLayout';
 import { Suspense, lazy } from 'react';
 
