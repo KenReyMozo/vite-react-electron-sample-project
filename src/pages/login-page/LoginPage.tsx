@@ -1,33 +1,33 @@
 import BulletList from "@/components/bullet-list/BulletList"
-import Button from "@/components/button/Button"
-import Input from "@/components/input/Input"
 import SignInApi from "@/firebase-manager/auth/AuthApi"
 import useFirebaseAuth from "@/firebase-manager/auth/AuthHook"
 import AuthProvider from "@/firebase-manager/auth/AuthProvider"
-import { CleanText } from "@/utilities/DataHandler"
+import { clearLogin, editLogin } from "@/redux/login-reducer"
+import { selectLogin } from "@/redux/login-selector"
+import { Button, Divider,TextField, Typography } from "@mui/material"
 import React, { useState } from "react"
+import { useDispatch, useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
 
 const LoginPage : React.FC = () => {
 
 	const navigate = useNavigate()
+	const dispatch = useDispatch()
+
 	const { user } = useFirebaseAuth({ redirect : '/user/home', fallback_to : '/'})
+
+	const _login = useSelector(selectLogin);
+
+	const onChangeLogin = (e: RCE<HTMLInputElement>) => {
+		const { name, value } = e.target;
+		setLoginErrors([]);
+		dispatch(editLogin({[name]: value}));
+	}
+
 	const [isSignUp, setIsSignUp] = useState(false)
 	const [isLoading, setIsLoading] = useState(false)
 
 	const [loginErrors, setLoginErrors] = useState<string[]>([])
-
-	const [loginData, setLoginData] = useState({
-		email : "",
-		password : "",
-	})
-
-	const onChangeLoginData = (e : RCE<HTMLInputElement>) => {
-		const { name, value } = e.target
-		setLoginErrors([])
-		const clean_value = CleanText(value)
-		setLoginData(prev => ({...prev, [name] : clean_value}))
-	}
 
 	const ShowNotification = () => {
 		new Notification("My Notification", {
@@ -40,83 +40,109 @@ const LoginPage : React.FC = () => {
 		e.preventDefault()
 		setLoginErrors([])
 		setIsLoading(true)
-		const credentials = await SignInApi(loginData)
+		const credentials = await SignInApi(_login)
 		setIsLoading(false)
 		if(typeof(credentials) === 'string'){
 			setLoginErrors([credentials])
 			return;
 		}
 		ShowNotification()
+		dispatch(clearLogin())
 		navigate('/user/home')
 	}
 
 	return (
 		<div className="page flex flex-col items-center justify-center">
 			{!isSignUp &&
-			<form className={`swing_in_top_fwd min-w-[20rem] bg-gray-200 p-4 rounded-lg`}
+			<form className={`flex flex-col gap-4 swing_in_top_fwd min-w-[20rem] bg-gray-200 p-4 rounded-lg`}
 				onSubmit={onSubmitLoginForm}>
-				<Input
+				<Typography variant='h6' className="text-center">
+					Login
+				</Typography>
+				<Divider/>
+				<TextField
+					size='small'
 					label="Email"
-					type="email"
-					inputMode="email"
+					variant="outlined"
+					value={_login.email}
+					disabled={user === undefined || isLoading}
+					placeholder="admin@email.com"
 					name="email"
-					value={loginData.email}
-					placeholder="sample@email.com"
-					onChange={onChangeLoginData}
-					disabled={user === undefined || isLoading}
-					required/>
-				<Input
+					onChange={onChangeLogin}
+					error={!_login.email}
+					/>
+				<TextField
+					size='small'
 					label="Password"
-					inputMode="text"
-					placeholder="************"
+					variant="outlined"
+					value={_login.password}
 					disabled={user === undefined || isLoading}
-					type="password"
+					placeholder="***********"
 					name="password"
-					onChange={onChangeLoginData}
-					required/>
+					type='password'
+					onChange={onChangeLogin}
+					error={!_login.password}
+					/>
 				<BulletList
 					items={loginErrors}
 					hide={false}/>
-				<div className="grid gap-6 mb-6 md:grid-cols-2 mt-4">
-					<Button.Dark type="submit"
-					disabled={user === undefined || isLoading}>
+				<div className="grid gap-6 mb-6 md:grid-cols-2">
+					<Button type="submit"
+						variant='contained'
+						disabled={user === undefined || isLoading}>
 						Login
-					</Button.Dark>
-					<Button.Alternative
-					disabled={user === undefined || isLoading}
+					</Button>
+					<Button
+						disabled={user === undefined || isLoading}
+						variant='outlined'
 						onClick={()=>setIsSignUp(prev => !prev)}>
 						Sign Up
-					</Button.Alternative>
+					</Button>
 				</div>
 			</form>
 			}
 			{isSignUp && 
-			<form className={`swing_in_top_fwd min-w-[20rem] bg-gray-200 p-4 rounded-lg`}
+			<form className={`flex flex-col gap-4 swing_in_top_fwd min-w-[20rem] bg-gray-200 p-4 rounded-lg`}
 				onSubmit={onSubmitLoginForm}>
-				<Input
+				<Typography variant='h6' className="text-center">
+					Sign Up
+				</Typography>
+				<Divider/>
+				<TextField
+					size='small'
 					label="Email"
-					type="email"
-					inputMode="email"
+					variant="outlined"
+					value={_login.email}
 					disabled={user === undefined || isLoading}
-					placeholder="sample@email.com"
-					required/>
-				<Input
+					placeholder="admin@email.com"
+					name="email"
+					onChange={onChangeLogin}
+					error={!_login.email}
+					/>
+				<TextField
+					size='small'
 					label="Password"
-					inputMode="text"
-					placeholder="************"
+					variant="outlined"
+					value={_login.password}
 					disabled={user === undefined || isLoading}
-					type="password"
-					required/>
+					placeholder="***********"
+					name="password"
+					type='password'
+					onChange={onChangeLogin}
+					error={!_login.password}
+					/>
 				<div className="grid gap-6 mb-6 md:grid-cols-2 mt-4">
-					<Button.Alternative type="submit"
+					<Button type="submit"
+						variant='contained'
 						disabled={user === undefined || isLoading}>
 						Sign Up
-					</Button.Alternative>
-					<Button.Dark
+					</Button>
+					<Button
+						variant='outlined'
 						disabled={user === undefined || isLoading}
 						onClick={()=>setIsSignUp(prev => !prev)}>
 						Login
-					</Button.Dark>
+					</Button>
 				</div>
 			</form>
 			}

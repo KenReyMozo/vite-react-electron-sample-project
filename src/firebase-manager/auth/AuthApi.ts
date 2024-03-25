@@ -6,18 +6,16 @@ import { FIREBASE_AUTHENTICATION_ERRORS } from "./AuthErrorList"
 const auth = getAuth(firebaseApp)
 
 type SignInApiType = {
-	email : string
-	password : string
+	email? : string
+	password? : string
 }
 
 const SignInApi = async ({
 	email,
 	password,
 } : SignInApiType) => {
-	return await signInWithEmailAndPassword(auth, email, password)
-	.then((res) => {
-		return res.user
-	})
+	return await signInWithEmailAndPassword(auth, email ?? '', password ?? '')
+	.then((res) => res.user)
 	.catch((error) => {
 		try {
 			const error_match = FIREBASE_AUTHENTICATION_ERRORS.find((item) => item.id === error.code)
