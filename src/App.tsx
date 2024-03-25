@@ -9,6 +9,7 @@ import { Suspense, lazy } from 'react';
 // import ErrorBoundary from './components/error-boundary/ErrorBoundary'
 
 const LazyProfilePage = lazy(() => import('@/pages/profile-page/ProfilePage'))
+const LazyColorPickerPage = lazy(() => import('@/pages/color-picker-page/color-picker-page'))
 
 const App = () => {
 	return (
@@ -36,7 +37,12 @@ const AppRouter = () => {
 			<Suspense>
 				<LazyProfilePage/>
 			</Suspense>
-		} />
+      }/>
+			<Route path="color-picker" element={
+			<Suspense>
+				<LazyColorPickerPage/>
+			</Suspense>
+      }/>
 		</Route>
 	</Routes>
 );

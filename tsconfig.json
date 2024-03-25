@@ -29,6 +29,6 @@
       "firebase-manager/*": [ "./src/firebase-manager/*",  ],
     }
   },
-  "include": ["src", "types", "electron"],
+  "include": ["src", "types", "electron", "store.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

@@ -24,11 +24,11 @@ const AuthLayout : React.FC = () => {
         <>
         <SideBar/>
         <main className={`${style.container} bg-gray-700`}>
-        <Navbar user={user}>
+          <Navbar user={user}>
             <Button.Dark onClick={onSignOut}>
-                <FaSignOutAlt/>
+              <FaSignOutAlt/>
             </Button.Dark>
-        </Navbar>
+          </Navbar>
         <Outlet/>
         </main>
         </>

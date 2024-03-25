@@ -31,6 +31,7 @@ function createWindow() {
       nodeIntegration : true,
       preload: path.join(__dirname, 'preload.js'),
       webSecurity : false,
+      contextIsolation: false,
     },
   })
 
