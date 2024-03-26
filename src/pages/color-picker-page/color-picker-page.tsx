@@ -1,6 +1,8 @@
+import { rgbToHex } from '@/helper/color';
+import { ClearSubstrings } from '@/helper/string';
 import { ImageFileTypes } from '@/utilities/AllowedFiles';
 import { Button, ButtonGroup, Typography } from '@mui/material';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { ImageColorPicker } from 'react-image-color-picker';
 const ColorPickerPage: React.FC = () => {
 
@@ -9,17 +11,9 @@ const ColorPickerPage: React.FC = () => {
     rgb: '',
   })
 
-  const rgbToHex = (r: number, g: number, b: number) => {
-    const toHex = (component: number) => {
-      const hex = component.toString(16);
-      return hex.length === 1 ? '0' + hex : hex;
-    };
-    return '#' + toHex(r) + toHex(g) + toHex(b);
-  }
-
   const onPickColor = (e : string) => {
 
-    const rgbString = e.toLowerCase().trim().replace(' ','').replace('rgb(','').replace(')','');
+    const rgbString = ClearSubstrings(e, [' ', 'rgb(', ')']);
     const rgbChars = rgbString.split(',');
     const r = parseInt(rgbChars[0]);
     const g = parseInt(rgbChars[1]);
@@ -34,28 +28,7 @@ const ColorPickerPage: React.FC = () => {
 
   const [image, setImage] = useState('');
 
-  useEffect(() => {
-    document.addEventListener('paste', e => {
-      e.preventDefault();
-    })
-    document.addEventListener('dragover', e => {
-      e.preventDefault();
-    })
-    document.addEventListener('drop', e => {
-      e.preventDefault();
-    })
-    return () => {
-      document.removeEventListener('paste', e => {
-        e.preventDefault();
-      })
-      document.removeEventListener('dragover', e => {
-        e.preventDefault();
-      })
-      document.removeEventListener('drop', e => {
-        e.preventDefault();
-      })
-    }
-  },[])
+  const onDragOver = (e: React.DragEvent<HTMLDivElement>) => e.preventDefault();
 
   const onDropFile = async (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
@@ -70,6 +43,7 @@ const ColorPickerPage: React.FC = () => {
   }
 
   const onPasteFile = async (e: React.ClipboardEvent<HTMLDivElement>) => {
+    e.preventDefault();
     const items = e.clipboardData?.items;
     if (!items || !items.length) return;
     
@@ -93,6 +67,7 @@ const ColorPickerPage: React.FC = () => {
   return (
     <div className="page flex flex-col items-center justify-center bg-gray-700">
       <div className='border-dashed border-4 rounded p-10 m-5'
+        onDragOver={onDragOver}
         onDrop={onDropFile}
         onPaste={onPasteFile}>
         <Typography variant='h5'>DROP IMAGE</Typography>
